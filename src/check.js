@@ -9,39 +9,63 @@ exports.init = function () {
        });
 };
 
-function extendObjectPrototype(_this) {
-    return {
-        containsKeys: function (keys) {
-            return this.checkPrototype([Object.prototype, Array.prototype]) &&
-            containsKeys.bind(_this, keys)();
-        },
+function extendObjectPrototype(_this, not) {
+    var extend = {
         hasKeys: function (keys) {
-            return this.checkPrototype([Object.prototype, Array.prototype]) &&
+            var result = this.checkPrototype([Object.prototype, Array.prototype]) &&
             hasKeys.bind(_this, keys)();
+            if (not) {
+                return !result;
+            }
+            return result;
         },
         hasValues: function (values) {
-            return this.checkPrototype([Object.prototype, Array.prototype]) &&
+            var result = this.checkPrototype([Object.prototype, Array.prototype]) &&
             hasValues.bind(_this, values)();
+            if (not) {
+                return !result;
+            }
+            return result;
         },
         containsValues: function (values) {
-            return this.checkPrototype([Object.prototype, Array.prototype]) &&
+            var result = this.checkPrototype([Object.prototype, Array.prototype]) &&
             containsValues.bind(_this, values)();
+            if (not) {
+                return !result;
+            }
+            return result;
         },
         hasValueType: function (key, type) {
-            return this.checkPrototype([Object.prototype, Array.prototype]) &&
+            var result = this.checkPrototype([Object.prototype, Array.prototype]) &&
             hasValueType.bind(_this, key, type)();
+            if (not) {
+                return !result;
+            }
+            return result;
         },
         hasLength: function (length) {
-            return this.checkPrototype([String.prototype, Array.prototype]) &&
+            var result = this.checkPrototype([String.prototype, Array.prototype]) &&
             hasLength.bind(_this, length)();
+            if (not) {
+                return !result;
+            }
+            return result;
         },
         hasParamsCount: function (count) {
-            return this.checkPrototype([Function.prototype]) &&
+            var result = this.checkPrototype([Function.prototype]) &&
             hasParamsCount.bind(_this, count)();
+            if (not) {
+                return !result;
+            }
+            return result;
         },
         hasWordsCount: function (count) {
-            return this.checkPrototype([String.prototype]) &&
+            var result = this.checkPrototype([String.prototype]) &&
             hasWordsCount.bind(_this, count)();
+            if (not) {
+                return !result;
+            }
+            return result;
         },
         checkPrototype: function (prototypes) {
             if (prototypes.indexOf(Object.getPrototypeOf(_this)) != -1) {
@@ -50,6 +74,13 @@ function extendObjectPrototype(_this) {
             return false;
         }
     };
+    Object.defineProperty(extend, 'not', {
+           get: function () {
+            return extendObjectPrototype(_this, true);
+        },
+           enumerable: false
+       });
+    return extend;
 }
 
 
