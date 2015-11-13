@@ -1,5 +1,7 @@
 'use strict';
 
+/** Расширяет прототипы базовых классов, добавляя в них вспомогательные методы.
+ */
 exports.init = function () {
     Object.defineProperty(Object.prototype, 'check', {
            get: function () {
@@ -9,69 +11,74 @@ exports.init = function () {
        });
 };
 
+exports.wrap = function (obj) {
+    if (obj !== null) {
+        return obj;
+    }
+    var newNullObject = new NullObject();
+    return newNullObject;
+};
+
+/** Создает новый объект NullObject
+ */
+var NullObject = function () {
+    this.isNull = function () {
+        return true;
+    };
+};
+
+/** Возвращает объект с новыми методами для _this
+ * @param {Object} _this объект, для которого формируются методы
+ * @returns {bool} [not] true, если вызвано из пространства имен not
+ */
 function extendObjectPrototype(_this, not) {
     var extend = {
         hasKeys: function (keys) {
             var result = this.checkPrototype([Object.prototype, Array.prototype]) &&
             hasKeys.bind(_this, keys)();
-            if (not) {
-                return !result;
-            }
-            return result;
+            return this.returnResult(result);
         },
         hasValues: function (values) {
             var result = this.checkPrototype([Object.prototype, Array.prototype]) &&
             hasValues.bind(_this, values)();
-            if (not) {
-                return !result;
-            }
-            return result;
+            return this.returnResult(result);
         },
         containsValues: function (values) {
             var result = this.checkPrototype([Object.prototype, Array.prototype]) &&
             containsValues.bind(_this, values)();
-            if (not) {
-                return !result;
-            }
-            return result;
+            return this.returnResult(result);
         },
         hasValueType: function (key, type) {
             var result = this.checkPrototype([Object.prototype, Array.prototype]) &&
             hasValueType.bind(_this, key, type)();
-            if (not) {
-                return !result;
-            }
-            return result;
+            return this.returnResult(result);
         },
         hasLength: function (length) {
             var result = this.checkPrototype([String.prototype, Array.prototype]) &&
             hasLength.bind(_this, length)();
-            if (not) {
-                return !result;
-            }
-            return result;
+            return this.returnResult(result);
         },
         hasParamsCount: function (count) {
             var result = this.checkPrototype([Function.prototype]) &&
             hasParamsCount.bind(_this, count)();
-            if (not) {
-                return !result;
-            }
-            return result;
+            return this.returnResult(result);
         },
         hasWordsCount: function (count) {
             var result = this.checkPrototype([String.prototype]) &&
             hasWordsCount.bind(_this, count)();
-            if (not) {
-                return !result;
-            }
-            return result;
+            return this.returnResult(result);
         },
         checkPrototype: function (prototypes) {
             if (prototypes.indexOf(Object.getPrototypeOf(_this)) != -1) {
                 return true;
             }
             return false;
+        },
+        returnResult: function (result) {
+            if (not) {
+                return !result;
+            }
+            return result;
         }
     };
     Object.defineProperty(extend, 'not', {
