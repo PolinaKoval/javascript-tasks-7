@@ -12,10 +12,6 @@ exports.init = function () {
        });
 };
 
-/**
- * Обертка над объектом
- * @param {Object} obj объект
- */
 exports.wrap = function (obj) {
     if (obj !== null) {
         return obj;
@@ -25,7 +21,9 @@ exports.wrap = function (obj) {
 };
 
 /**
- * Создает новый объект NullObject
+ * Создает экземпляр NullObject.
+ * @constructor
+ * @this {NullObject}
  */
 var NullObject = function () {
     this.isNull = function () {
