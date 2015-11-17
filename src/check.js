@@ -1,6 +1,7 @@
 'use strict';
 
-/** Расширяет прототипы базовых классов, добавляя в них вспомогательные методы.
+/**
+ * Расширяет прототипы базовых классов, добавляя в них вспомогательные методы.
  */
 exports.init = function () {
     Object.defineProperty(Object.prototype, 'check', {
@@ -19,7 +20,8 @@ exports.wrap = function (obj) {
     return newNullObject;
 };
 
-/** Создает новый объект NullObject
+/**
+ * Создает новый объект NullObject
  */
 var NullObject = function () {
     this.isNull = function () {
@@ -27,7 +29,8 @@ var NullObject = function () {
     };
 };
 
-/** Возвращает объект с новыми методами для _this
+/**
+ * Возвращает объект с новыми методами для _this
  * @param {Object} _this объект, для которого формируются методы
  * @returns {bool} [not] true, если вызвано из пространства имен not
  */
@@ -91,7 +94,8 @@ function extendObjectPrototype(_this, not) {
 }
 
 
-/** Проверяет, что цель содержит указанные ключи из keys.
+/**
+ * Проверяет, что цель содержит указанные ключи из keys.
  * @param {Array} keys проверяемые ключи
  * @returns {bool} true, если содержит, иначе false
  */
@@ -100,7 +104,8 @@ function containsKeys(keys) {
     return keys.every(elem => allKeys.indexOf(elem) !== -1);
 }
 
-/** Проверяет, что цель содержит указанные только ключи из keys.
+/**
+ * Проверяет, что цель содержит указанные только ключи из keys.
  * @param {Array} keys проверяемые ключи
  * @returns {bool} true, если все ключи из цели и keys совпадают, иначе false
  */
@@ -109,7 +114,8 @@ function hasKeys(keys) {
            Object.keys(this).length === keys.length;
 }
 
-/** Проверяет, что цель содержит указанные значения из values.
+/**
+ * Проверяет, что цель содержит указанные значения из values.
  * @param {Array} values проверяемые ключи
  * @returns {bool} true, если содержит, иначе false
  */
@@ -121,7 +127,8 @@ function containsValues(values) {
     return values.every(elem => allValues.indexOf(elem) !== -1);
 }
 
-/** Проверяет, что цель содержит только указанные значения из values.
+/**
+ * Проверяет, что цель содержит только указанные значения из values.
  * @param {Array} values проверяемые ключи
  * @returns {bool} true, если все значения из цели и values совпадают, иначе false
  */
@@ -134,7 +141,8 @@ function hasValues(values) {
            allValues.length === values.length;
 }
 
-/** Проверяет, что значение по указанному ключу key относится к указанному типу type
+/**
+ * Проверяет, что значение по указанному ключу key относится к указанному типу type
  * @param {string} key ключ
  * @param {type} type Допустимые значения String, Number, Function, Array
  * @returns {bool} true, если значение по key тносится к type, иначе false
@@ -151,7 +159,8 @@ function hasValueType(key, type) {
     return false;
 }
 
-/** Проверяет, что длина цели соответствует указанной lenght.
+/**
+ * Проверяет, что длина цели соответствует указанной lenght.
  * @param {number} lenght длина
  * @returns {bool} true, если соответствует, иначе false
  */
@@ -159,7 +168,8 @@ function hasLength(length) {
     return this.length === length;
 }
 
-/** Определён для функций. Проверяет,
+/**
+ * Определён для функций. Проверяет,
  что количество аргументов функции соответствует указанному.
  * @param {number} count количество аргуметов
  * @returns {bool} true, если соответствует, иначе false
@@ -168,7 +178,8 @@ function hasParamsCount(count) {
     return this.length === count;
 }
 
-/**Определён для строк. Проверяет, что количество слов в строке соответствует указанному.
+/**
+ *Определён для строк. Проверяет, что количество слов в строке соответствует указанному.
 Словом считается последовательность символов,
 ограниченная с обеих сторон пробелами или началом/концом строки.
  * @param {number} count количество слов
