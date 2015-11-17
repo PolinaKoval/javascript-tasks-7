@@ -69,7 +69,7 @@ function extendObjectPrototype(_this, not) {
             return this.returnResult(result);
         },
         checkPrototype: function (prototypes) {
-            if (prototypes.indexOf(Object.getPrototypeOf(_this)) != -1) {
+            if (prototypes.indexOf(Object.getPrototypeOf(_this)) !== -1) {
                 return true;
             }
             return false;
@@ -97,7 +97,7 @@ function extendObjectPrototype(_this, not) {
  */
 function containsKeys(keys) {
     var allKeys = Object.keys(this);
-    return keys.every(elem => allKeys.indexOf(elem) != -1);
+    return keys.every(elem => allKeys.indexOf(elem) !== -1);
 }
 
 /** Проверяет, что цель содержит указанные только ключи из keys.
@@ -105,7 +105,7 @@ function containsKeys(keys) {
  * @returns {bool} true, если все ключи из цели и keys совпадают, иначе false
  */
 function hasKeys(keys) {
-    return Object.keys(this).every(elem => keys.indexOf(elem) != -1) &&
+    return Object.keys(this).every(elem => keys.indexOf(elem) !== -1) &&
            Object.keys(this).length === keys.length;
 }
 
@@ -118,7 +118,7 @@ function containsValues(values) {
     var allValues = Object.keys(_this).map(function (key) {
         return _this[key];
     });
-    return values.every(elem => allValues.indexOf(elem) != -1);
+    return values.every(elem => allValues.indexOf(elem) !== -1);
 }
 
 /** Проверяет, что цель содержит только указанные значения из values.
@@ -130,7 +130,7 @@ function hasValues(values) {
     var allValues = Object.keys(_this).map(function (key) {
         return _this[key];
     });
-    return allValues.every(elem => values.indexOf(elem) != -1) &&
+    return allValues.every(elem => values.indexOf(elem) !== -1) &&
            allValues.length === values.length;
 }
 
@@ -142,7 +142,7 @@ function hasValues(values) {
 function hasValueType(key, type) {
     var types = ['string', 'number', 'function'];
     if (!(containsValues.bind(types, [typeof type()])()) &&
-        !(Object.getPrototypeOf(type()) === Array.prototype)) {
+        Object.getPrototypeOf(type()) !== Array.prototype) {
         return false;
     }
     if (this[key] === type(this[key])) {
