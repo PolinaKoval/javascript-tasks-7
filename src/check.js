@@ -12,6 +12,10 @@ exports.init = function () {
        });
 };
 
+/**
+ * Обертка над объектом
+ * @param {Object} obj объект
+ */
 exports.wrap = function (obj) {
     if (obj !== null) {
         return obj;
