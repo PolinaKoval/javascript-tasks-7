@@ -127,11 +127,7 @@ function containsValues(values) {
  * @returns {bool} true, если все значения из цели и values совпадают, иначе false
  */
 function hasValues(values) {
-    var _this = this;
-    var allValues = Object.keys(_this).map(function (key) {
-        return _this[key];
-    });
-    return allValues.every(elem => values.indexOf(elem) !== -1) &&
+    return containsValues.bind(this, values) &&
            allValues.length === values.length;
 }
 
@@ -169,7 +165,7 @@ function hasLength(length) {
  * @returns {bool} true, если соответствует, иначе false
  */
 function hasParamsCount(count) {
-    return this.length === count;
+    return hasLength.bind(this, count)();
 }
 
 /**
