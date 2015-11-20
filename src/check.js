@@ -42,6 +42,10 @@ function extendObjectPrototype(_this, not) {
             this.checkPrototype([Object.prototype, Array.prototype]);
             return this.returnResult(hasKeys.bind(_this, keys)());
         },
+        containsKeys: function (keys) {
+                this.checkPrototype([Object.prototype, Array.prototype]);
+                return this.returnResult(containsKeys.bind(_this, keys)());
+                },
         hasValues: function (values) {
             this.checkPrototype([Object.prototype, Array.prototype]);
             return this.returnResult(hasValues.bind(_this, values)());
@@ -127,8 +131,8 @@ function containsValues(values) {
  * @returns {bool} true, если все значения из цели и values совпадают, иначе false
  */
 function hasValues(values) {
-    return containsValues.bind(this, values) &&
-           allValues.length === values.length;
+    return containsValues.bind(this, values)() &&
+           Object.keys(this).length === values.length;
 }
 
 /**
@@ -138,12 +142,11 @@ function hasValues(values) {
  * @returns {bool} true, если значение по key тносится к type, иначе false
  */
 function hasValueType(key, type) {
-    var types = ['string', 'number', 'function'];
-    if (!(containsValues.bind(types, [typeof type()])()) &&
-        Object.getPrototypeOf(type()) !== Array.prototype) {
+    var prototypes = [String.prototype, Number.prototype, Function.prototype, Array.prototype];
+    if (prototypes.indexOf(Object.getPrototypeOf(type())) === -1) {
         return false;
     }
-    if (this[key] === type(this[key])) {
+    if (typeof this[key] === typeof type()) {
         return true;
     }
     return false;
